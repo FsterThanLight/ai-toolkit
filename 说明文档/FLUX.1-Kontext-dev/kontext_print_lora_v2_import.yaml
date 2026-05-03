@@ -1,0 +1,100 @@
+---
+job: "extension"
+config:
+  name: "kontext_print_lora_v2"
+  process:
+    - type: "diffusion_trainer"
+      training_folder: "/root/ai-toolkit/output"
+      sqlite_db_path: "./aitk_db.db"
+      device: "cuda"
+      performance_log_every: 10
+      trigger_word: "pr1ntfx"
+      network:
+        type: "lora"
+        linear: 16
+        linear_alpha: 16
+      save:
+        dtype: "bf16"
+        save_every: 250
+        max_step_saves_to_keep: 4
+        save_format: "safetensors"
+        push_to_hub: false
+      datasets:
+        - folder_path: "/root/ai-toolkit/datasets/target"
+          control_path: "/root/ai-toolkit/datasets/control"
+          caption_ext: "txt"
+          default_caption: ""
+          caption_dropout_rate: 0
+          shuffle_tokens: false
+          cache_latents_to_disk: true
+          is_reg: false
+          network_weight: 1
+          num_repeats: 1
+          flip_x: false
+          flip_y: false
+          resolution:
+            - 512
+            - 768
+      train:
+        batch_size: 1
+        steps: 2000
+        gradient_accumulation: 1
+        train_unet: true
+        train_text_encoder: false
+        gradient_checkpointing: true
+        noise_scheduler: "flowmatch"
+        optimizer: "adamw8bit"
+        timestep_type: "weighted"
+        content_or_style: "balanced"
+        optimizer_params:
+          weight_decay: 0.0001
+        unload_text_encoder: false
+        cache_text_embeddings: false
+        lr: 0.00005
+        ema_config:
+          use_ema: false
+          ema_decay: 0.99
+        skip_first_sample: true
+        force_first_sample: false
+        disable_sampling: false
+        dtype: "bf16"
+        diff_output_preservation: true
+        diff_output_preservation_multiplier: 1
+        diff_output_preservation_class: "clothing print"
+        loss_type: "mse"
+      logging:
+        log_every: 1
+        use_ui_logger: true
+      model:
+        name_or_path: "black-forest-labs/FLUX.1-Kontext-dev"
+        quantize: true
+        qtype: "qfloat8"
+        quantize_te: true
+        qtype_te: "qfloat8"
+        arch: "flux_kontext"
+        low_vram: false
+        model_kwargs: {}
+      sample:
+        sampler: "flowmatch"
+        sample_every: 250
+        width: 1024
+        height: 1024
+        samples:
+          - prompt: "extract only the clothing print pattern and reconstruct it as a flat, clean, complete texture, removing folds, wrinkles, perspective distortion, shadows and garment structure"
+            ctrl_img: "/root/ai-toolkit/data/images/7e26f57d-89a7-440b-aeac-f722d7413f4b.png"
+          - prompt: "extract only the clothing print pattern and reconstruct it as a flat, clean, complete texture, removing folds, wrinkles, perspective distortion, shadows and garment structure"
+            ctrl_img: "/root/ai-toolkit/data/images/da012717-f17a-4800-a659-5038a24cdf73.png"
+          - prompt: "extract only the clothing print pattern and reconstruct it as a flat, clean, complete texture, removing folds, wrinkles, perspective distortion, shadows and garment structure"
+            ctrl_img: "/root/ai-toolkit/data/images/c5111428-6f1d-49cf-9400-49701a1f59e7.png"
+          - prompt: "extract only the clothing print pattern and reconstruct it as a flat, clean, complete texture, removing folds, wrinkles, perspective distortion, shadows and garment structure"
+            ctrl_img: "/root/ai-toolkit/data/images/ecce76f1-6d42-4dd3-b7a3-66ca5fb69315.png"
+        neg: ""
+        seed: 42
+        walk_seed: true
+        guidance_scale: 4
+        sample_steps: 20
+        num_frames: 1
+        fps: 1
+meta:
+  name: "kontext_print_lora_v2"
+  version: "2.0"
