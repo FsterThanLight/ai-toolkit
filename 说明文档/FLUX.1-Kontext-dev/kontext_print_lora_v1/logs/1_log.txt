@@ -1,219 +1,0 @@
-Running 1 job
-{
-    "type": "diffusion_trainer",
-    "training_folder": "/root/ai-toolkit/output",
-    "sqlite_db_path": "/root/ai-toolkit/aitk_db.db",
-    "device": "cuda",
-    "performance_log_every": 10,
-    "trigger_word": "pr1ntfx",
-    "network": {
-        "type": "lora",
-        "linear": 16,
-        "linear_alpha": 16
-    },
-    "save": {
-        "dtype": "bf16",
-        "save_every": 250,
-        "max_step_saves_to_keep": 4,
-        "save_format": "safetensors",
-        "push_to_hub": false
-    },
-    "datasets": [
-        {
-            "folder_path": "/root/ai-toolkit/datasets/target",
-            "control_path": "/root/ai-toolkit/datasets/control",
-            "caption_ext": "txt",
-            "default_caption": "",
-            "caption_dropout_rate": 0.05,
-            "shuffle_tokens": false,
-            "cache_latents_to_disk": true,
-            "is_reg": false,
-            "network_weight": 1,
-            "num_repeats": 1,
-            "flip_x": false,
-            "flip_y": false,
-            "resolution": [
-                512,
-                768
-            ]
-        }
-    ],
-    "train": {
-        "batch_size": 1,
-        "steps": 2000,
-        "gradient_accumulation": 1,
-        "train_unet": true,
-        "train_text_encoder": false,
-        "gradient_checkpointing": true,
-        "noise_scheduler": "flowmatch",
-        "optimizer": "adamw8bit",
-        "timestep_type": "weighted",
-        "content_or_style": "balanced",
-        "optimizer_params": {
-            "weight_decay": 0.0001
-        },
-        "unload_text_encoder": false,
-        "cache_text_embeddings": false,
-        "lr": 0.0001,
-        "ema_config": {
-            "use_ema": false,
-            "ema_decay": 0.99
-        },
-        "skip_first_sample": true,
-        "force_first_sample": false,
-        "disable_sampling": false,
-        "dtype": "bf16",
-        "diff_output_preservation": false,
-        "diff_output_preservation_multiplier": 1,
-        "diff_output_preservation_class": "person",
-        "loss_type": "mse"
-    },
-    "logging": {
-        "log_every": 1,
-        "use_ui_logger": true
-    },
-    "model": {
-        "name_or_path": "black-forest-labs/FLUX.1-Kontext-dev",
-        "quantize": true,
-        "qtype": "qfloat8",
-        "quantize_te": true,
-        "qtype_te": "qfloat8",
-        "arch": "flux_kontext",
-        "low_vram": false,
-        "model_kwargs": {}
-    },
-    "sample": {
-        "sampler": "flowmatch",
-        "sample_every": 250,
-        "width": 1024,
-        "height": 1024,
-        "samples": [
-            {
-                "prompt": "apply [trigger] floral print to the shirt, keep the person and garment shape unchanged",
-                "ctrl_img": "/mnt/c/Users/23096/PycharmProjects/ai-toolkit/\u8bf4\u660e\u6587\u6863/\u8bad\u7ec3\u7b2c\u4e00\u6279/kontext_ready/control/1.png"
-            },
-            {
-                "prompt": "change only the clothing print to [trigger] geometric logo pattern, preserve pose and background",
-                "ctrl_img": "/mnt/c/Users/23096/PycharmProjects/ai-toolkit/\u8bf4\u660e\u6587\u6863/\u8bad\u7ec3\u7b2c\u4e00\u6279/kontext_ready/control/10.png"
-            }
-        ],
-        "neg": "",
-        "seed": 42,
-        "walk_seed": true,
-        "guidance_scale": 4,
-        "sample_steps": 20,
-        "num_frames": 1,
-        "fps": 1
-    }
-}
-Using SQLite database at /root/ai-toolkit/aitk_db.db
-Job ID: "03d5eb53-9155-407c-857a-1077632ded3e"
-
-#############################################
-# Running job: kontext_print_lora_v1
-#############################################
-
-
-Running  1 process
-Loading Flux Kontext model
-Loading transformer
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  67%|######6   | 2/3 [00:00<00:00, 17.76it/s]Loading checkpoint shards:  67%|######6   | 2/3 [00:00<00:00, 17.76it/s]Loading checkpoint shards: 100%|##########| 3/3 [00:00<00:00, 19.57it/s]Loading checkpoint shards: 100%|##########| 3/3 [00:00<00:00, 19.57it/s]
-
-Quantizing transformer
-Loading T5
-You set `add_prefix_space`. The tokenizer needs to be converted from the slow tokenizers
-You set `add_prefix_space`. The tokenizer needs to be converted from the slow tokenizers
-`torch_dtype` is deprecated! Use `dtype` instead!
-`torch_dtype` is deprecated! Use `dtype` instead!
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|##########| 2/2 [00:00<00:00, 21.35it/s]Loading checkpoint shards: 100%|##########| 2/2 [00:00<00:00, 21.35it/s]
-
-Quantizing T5
-Loading CLIP
-Loading VAE
-Making pipe
-Preparing Model
-Model Loaded
-create LoRA network. base dim (rank): 16, alpha: 16
-neuron dropout: p=None, rank dropout: p=None, module dropout: p=None
-create LoRA for Text Encoder: 0 modules.
-create LoRA for U-Net: 494 modules.
-enable LoRA for U-Net
-#### IMPORTANT RESUMING FROM /root/ai-toolkit/output/kontext_print_lora_v1/kontext_print_lora_v1_000000250.safetensors ####
-Loading from /root/ai-toolkit/output/kontext_print_lora_v1/kontext_print_lora_v1_000000250.safetensors
-Missing keys: []
-Found step 250 in metadata, starting from there
-Loading optimizer state from /root/ai-toolkit/output/kontext_print_lora_v1/optimizer.pt
-Updating optimizer LR from params
-Dataset: /root/ai-toolkit/datasets/target
-  -  Preprocessing image dimensions
-  0%|          | 0/98 [00:00<?, ?it/s]  0%|          | 0/98 [00:00<?, ?it/s]100%|##########| 98/98 [00:00<00:00, 22797.66it/s]100%|##########| 98/98 [00:00<00:00, 22797.66it/s]
-
-  -  Found 98 images
-Bucket sizes for /root/ai-toolkit/datasets/target:
-512x512: 98 files
-1 buckets made
-Caching latents for /root/ai-toolkit/datasets/target
- - Saving latents to disk
-Caching latents to disk:   0%|          | 0/98 [00:00<?, ?it/s]Caching latents to disk:   0%|          | 0/98 [00:00<?, ?it/s]Caching latents to disk: 100%|##########| 98/98 [00:00<00:00, 47437.02it/s]Caching latents to disk: 100%|##########| 98/98 [00:00<00:00, 47437.02it/s]
-
-Dataset: /root/ai-toolkit/datasets/target
-  -  Preprocessing image dimensions
-  0%|          | 0/98 [00:00<?, ?it/s]  0%|          | 0/98 [00:00<?, ?it/s]100%|##########| 98/98 [00:00<00:00, 22676.92it/s]100%|##########| 98/98 [00:00<00:00, 22676.92it/s]
-
-  -  Found 98 images
-Bucket sizes for /root/ai-toolkit/datasets/target:
-768x768: 98 files
-1 buckets made
-Caching latents for /root/ai-toolkit/datasets/target
- - Saving latents to disk
-Caching latents to disk:   0%|          | 0/98 [00:00<?, ?it/s]Caching latents to disk:   0%|          | 0/98 [00:00<?, ?it/s]Caching latents to disk: 100%|##########| 98/98 [00:00<00:00, 49750.88it/s]Caching latents to disk: 100%|##########| 98/98 [00:00<00:00, 49750.88it/s]
-
-Error running job: Job stopped
-
-========================================
-Result:
- - 0 completed jobs
- - 1 failure
-========================================
-Traceback (most recent call last):
-Traceback (most recent call last):
-  File "/root/ai-toolkit/run.py", line 120, in <module>
-    main()
-    ~~~~^^
-  File "/root/ai-toolkit/run.py", line 120, in <module>
-    main()
-    ~~~~^^
-  File "/root/ai-toolkit/run.py", line 108, in main
-    raise e
-  File "/root/ai-toolkit/run.py", line 108, in main
-    raise e
-  File "/root/ai-toolkit/run.py", line 96, in main
-    job.run()
-    ~~~~~~~^^
-  File "/root/ai-toolkit/run.py", line 96, in main
-    job.run()
-    ~~~~~~~^^
-  File "/root/ai-toolkit/jobs/ExtensionJob.py", line 22, in run
-    process.run()
-    ~~~~~~~~~~~^^
-  File "/root/ai-toolkit/jobs/ExtensionJob.py", line 22, in run
-    process.run()
-    ~~~~~~~~~~~^^
-  File "/root/ai-toolkit/jobs/process/BaseSDTrainProcess.py", line 2057, in run
-    self.hook_before_train_loop()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "/root/ai-toolkit/jobs/process/BaseSDTrainProcess.py", line 2057, in run
-    self.hook_before_train_loop()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "/root/ai-toolkit/extensions_built_in/sd_trainer/DiffusionTrainer.py", line 281, in hook_before_train_loop
-    self.maybe_stop()
-    ~~~~~~~~~~~~~~~^^
-  File "/root/ai-toolkit/extensions_built_in/sd_trainer/DiffusionTrainer.py", line 281, in hook_before_train_loop
-    self.maybe_stop()
-    ~~~~~~~~~~~~~~~^^
-  File "/root/ai-toolkit/extensions_built_in/sd_trainer/DiffusionTrainer.py", line 147, in maybe_stop
-    raise Exception("Job stopped")
-  File "/root/ai-toolkit/extensions_built_in/sd_trainer/DiffusionTrainer.py", line 147, in maybe_stop
-    raise Exception("Job stopped")
-Exception: Job stopped
-Exception: Job stopped
