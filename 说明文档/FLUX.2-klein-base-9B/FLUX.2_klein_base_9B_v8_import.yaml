@@ -1,7 +1,7 @@
 ---
 job: "extension"
 config:
-  name: "flux2_klein_9b_print_extract_v6"
+  name: "flux2_klein_9b_print_extract_v8"
   process:
     - type: "diffusion_trainer"
       training_folder: "/root/ai-toolkit/output"
@@ -23,7 +23,7 @@ config:
         - folder_path: "D:/临时/AI绘图训练/荣益素材_klein_ready/target"
           mask_path: null
           mask_min_value: 0.1
-          default_caption: "Extract only the graphic print from the garment and remove the garment itself. Please remove all distortion and perspective caused by fabric folds or body shape to ensure the pattern is perfectly flat, horizontal, and vertical. Restore the original aspect ratio and ensure the colors of the text and graphics are accurate. Sharpen any blurry text for high-definition clarity. Set the final background to light gray."
+          default_caption: "Extract only the graphic print from the garment and remove the garment itself. Please remove all distortion and perspective caused by fabric folds or body shape to ensure the pattern is perfectly flat, horizontal, and vertical. Restore the original aspect ratio and ensure the colors of the text and graphics are accurate. Sharpen any blurry text for high-definition clarity. Place the extracted graphic on a plain low-saturation solid background."
           caption_ext: "txt"
           caption_dropout_rate: 0
           cache_latents_to_disk: false
@@ -103,5 +103,5 @@ config:
         num_frames: 1
         fps: 1
 meta:
-  name: "flux2_klein_9b_print_extract_v6"
-  version: "6.0"
+  name: "flux2_klein_9b_print_extract_v8"
+  version: "8.0"
