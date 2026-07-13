@@ -10,7 +10,10 @@ export default function useDatasetList() {
   const refreshDatasets = () => {
     setStatus('loading');
     apiClient
-      .get('/api/datasets/list')
+      .get('/api/datasets/list', {
+        params: { _: Date.now() },
+        headers: { 'Cache-Control': 'no-cache' },
+      })
       .then(res => res.data)
       .then(data => {
         console.log('Datasets:', data);
