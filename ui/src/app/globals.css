@@ -43,6 +43,45 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Prevent iOS Safari from auto-zooming when a form field is focused.
+   iOS only zooms when the field's font-size is < 16px. */
+@media (max-width: 639px) {
+  input,
+  textarea,
+  select,
+  .aitk-react-select-container .aitk-react-select__control,
+  .aitk-react-select-container .aitk-react-select__input,
+  .aitk-react-select-container .aitk-react-select__single-value,
+  .aitk-react-select-container .aitk-react-select__placeholder,
+  .aitk-react-select-container .aitk-react-select__option {
+    font-size: 16px !important;
+  }
+}
+
+@keyframes heartbeat {
+  0%,
+  40%,
+  100% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.6);
+  }
+  20% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.45);
+  }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.6s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+  will-change: transform;
+}
+
 @layer components {
   /* control */
   .aitk-react-select-container .aitk-react-select__control {
@@ -89,4 +128,53 @@ body {
   .aitk-react-select-container .aitk-react-select__placeholder {
     @apply text-sm text-gray-200;
   }
+}
+
+/* Generate page sidebar: tighter version of the shared form inputs */
+.compact-form label {
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.125rem !important;
+  font-size: 11px !important;
+}
+.compact-form input[type='text'],
+.compact-form input[type='number'],
+.compact-form input[type='password'],
+.compact-form textarea {
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  font-size: 12px !important;
+}
+.compact-form textarea {
+  min-height: 3.5rem;
+}
+.compact-form .aitk-react-select-container .aitk-react-select__control {
+  height: 26px !important;
+  min-height: 26px !important;
+  font-size: 12px !important;
+  line-height: 1.2 !important;
+}
+.compact-form .aitk-react-select-container .aitk-react-select__value-container {
+  padding: 0 6px !important;
+}
+.compact-form .aitk-react-select-container .aitk-react-select__single-value,
+.compact-form .aitk-react-select-container .aitk-react-select__placeholder,
+.compact-form .aitk-react-select-container .aitk-react-select__input-container,
+.compact-form .aitk-react-select-container .aitk-react-select__input,
+.compact-form .aitk-react-select-container .aitk-react-select__option {
+  font-size: 12px !important;
+  line-height: 1.2 !important;
+}
+.compact-form .aitk-react-select-container .aitk-react-select__input-container {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.compact-form .aitk-react-select-container .aitk-react-select__option {
+  padding: 4px 8px !important;
+}
+.compact-form .aitk-react-select-container .aitk-react-select__indicator {
+  padding: 2px !important;
+}
+.compact-form .aitk-react-select-container .aitk-react-select__indicator svg {
+  width: 14px;
+  height: 14px;
 }

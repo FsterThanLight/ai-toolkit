@@ -41,13 +41,14 @@ export async function GET() {
     let datasetsPath = await getDatasetsRoot();
 
     // if folder doesnt exist, create it
-    if (!fs.existsSync(datasetsPath)) {
-      fs.mkdirSync(datasetsPath);
+    try {
+      await fs.promises.access(datasetsPath);
+    } catch {
+      await fs.promises.mkdir(datasetsPath);
     }
 
     // Keep top-level folders while also exposing nested image directories.
-    const topLevelFolders = fs
-      .readdirSync(datasetsPath, { withFileTypes: true })
+    const topLevelFolders = (await fs.promises.readdir(datasetsPath, { withFileTypes: true }))
       .filter(dirent => dirent.isDirectory())
       .filter(dirent => !dirent.name.startsWith('.'))
       .map(dirent => dirent.name);
